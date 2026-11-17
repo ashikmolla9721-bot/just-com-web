@@ -30,18 +30,14 @@ workflows:
 
           flutter pub get
           echo "=== Setup OK ==="
-      - name: Accept Android SDK licenses
-        script: |
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
       - name: Build release APK
-        script: |
-          set -e
-          
-          if [ -d "justcoldshop_app" ]; then
-            cd justcoldshop_app
-          fi
-
-          flutter build apk --release
+    script: |
+      set -e
+      if [ -d "justcoldshop_app" ]; then
+        cd justcoldshop_app
+      fi
+      # ফ্লেভার বা বাড়তি টাস্ক ছাড়াই সরাসরি এপিকে বিল্ড কমান্ড
+      flutter build apk --release --verbose
 
           ls -la build/app/outputs/flutter-apk/
 
